@@ -32,6 +32,7 @@ class user extends CI_Controller
             $data['member_phone']                     = $this->input->post('txt_phone');
             $data['member_mobile_no']                 = $this->input->post('txt_mobile');
             $data['member_email']                     = $this->input->post('txt_email');
+            $data['member_password']                  = $this->input->post('txt_password');
             $data['member_gol']                       = $this->input->post('txt_gol_name');
             $data['member_dob']                       = $this->input->post('txt_dob');
             $data['member_birth_place']               = $this->input->post('txt_birth_place');
@@ -167,23 +168,25 @@ class user extends CI_Controller
     
     public function login($param1 = "")
     {
-        
-        $email    = $this->input->post('txt_email');
-        $password = $this->input->post('txt_password');
-        
-        $login_res = $this->db->get_where('tbl_member', array(
-            'member_email' => $email,
-            'member_password' => $password
-        ));
-        if ($login_res->num_rows() > 0) {
-            foreach ($login_res->result() as $login_row) {
-                $_SESSION["member_id"] = $login_row->member_id;
-                redirect(base_url() . 'user/dashboard');
+        if ($param1 == "check") {
+            
+            $email    = $this->input->post('txt_email');
+            $password = $this->input->post('txt_password');
+            
+            $login_res = $this->db->get_where('tbl_member', array(
+                'member_email' => $email,
+                'member_password' => $password
+            ));
+            if ($login_res->num_rows() > 0) {
+                foreach ($login_res->result() as $login_row) {
+                    $_SESSION["member_id"] = $login_row->member_id;
+                    redirect(base_url() . 'user/dashboard');
+                }
+            } else {
+                $page_data['msg'] = '<div class="alert alert-danger">
+      <strong>Wrong!</strong> Username or Password is Wrong
+    </div>';
             }
-        } else {
-            $page_data['msg'] = '<div class="alert alert-danger">
-  <strong>Wrong!</strong> Username or Password is Wrong
-</div>';
         }
         
     }
@@ -243,12 +246,14 @@ class user extends CI_Controller
         ));
         $this->load->view('user/photo_view', $page_data);
     }
-
+    
     public function video()
     {
-        $page_data['video_res'] = $this->db->get_where('tbl_video',array('video_status'=>'Active'));
-
-        $this->load->view('user/video_view'.$page_data);
+        $page_data['video_res'] = $this->db->get_where('tbl_video', array(
+            'video_status' => 'Active'
+        ));
+        
+        $this->load->view('user/video_view' . $page_data);
     }
     
     public function about_us()
@@ -259,6 +264,26 @@ class user extends CI_Controller
     public function contact_us()
     {
         $this->load->view('user/contact_view');
+    }
+    
+    public function profile_update()
+    {
+        $data['member_profile_status'] = $this->input->post('chk_private_profile');
+        $data['member_image_blur']     = $this->input->post('chk_image_blur');
+        $this->db->where('member_id', $_SESSION["member_id"]);
+        $this->db->update('tbl_member', $data);
+    }
+    
+    public function profile_request($member_id)
+    {
+        $data['from_member_id']         = $_SESSION["member_id"];
+        $data['to_member_id']           = $member_id;
+        $data['profile_request_status'] = 'Unread';
+        $data['profile_request_date']   = date('Y-m-d');
+        
+        $url = $_SERVER['HTTP_REFERER'];
+        redirect($url);
+        
     }
     
     
