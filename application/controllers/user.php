@@ -190,6 +190,65 @@ class user extends CI_Controller
         }
         
     }
+
+    public function logout()
+    {
+        unset($_SESSION["member_id"]);
+        session_destroy();
+
+        redirect(base_url().'user/home');
+    }
+
+    public function dashboard()
+    {
+        $this->load->view('user/dashboard_view');
+    }
+
+    public function edit_profile($param1="")
+    {
+        
+    }
+
+    public function change_password($param1="")
+    {
+        $page_data=array();
+        if($param1=="update")
+        {
+            $old_pwd = $this->input->post('txt_old_password');
+            $new_pwd = $this->input->post('txt_new_password');
+            $confirm_pwd = $this->input->post('txt_confirm_password');
+
+            if($new_pwd == $confirm_pwd)
+            {
+                $member_res=$this->db->get_where('tbl_member',array("member_id"=>$_SESSION["member_id"],
+                    "member_password"=>$old_pwd));
+                if($member_res->num_rows()>0)
+                {
+                    $update_data['member_password']=$new_pwd;
+                    $this->db->where('member_id',$_SESSION["member_id"]);
+                    $this->db->update('tbl_member',$update_data);
+                    //echo "Password is Changed successfully";
+                    $page_data['msg']='<div class="alert alert-success">
+  <strong>Success!</strong> Password successfully changed
+</div>';
+                }
+                else
+                {
+                    $page_data['msg']='<div class="alert alert-danger">
+  <strong>Wrong!</strong> Email or Password is wrong
+</div>';
+                    echo "Old Password is wrong";
+                }
+            }
+            else
+            {
+                $page_data['msg']='<div class="alert alert-danger">
+  <strong>Wrong!</strong> New and Confirm Password not matched
+</div>';
+            }
+        }
+        $this->load->view('user/change_password_view',$page_data);
+    }
     
     public function event()
     {
@@ -283,8 +342,11 @@ class user extends CI_Controller
         
         $url = $_SERVER['HTTP_REFERER'];
         redirect($url);
-        
     }
+
+    
+
+
     
     
     
