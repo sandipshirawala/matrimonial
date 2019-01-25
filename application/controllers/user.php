@@ -344,6 +344,22 @@ class user extends CI_Controller
         redirect($url);
     }
 
+    public function request_approval($profile_request_id,$action)
+    {
+        $update_data=array();
+        if($action=="Approve")
+        {
+            $update_data['profile_request_status']='Approved';
+        }
+        if($action=="Reject")
+        {
+            $update_data['profile_request_status']='Rejected';
+        }
+        $this->db->where('profile_request_id',$profile_request_id);
+        $this->db->update('tbl_profile_request',$update_data);
+    }
+    
+
     
 
 
