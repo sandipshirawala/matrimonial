@@ -27,15 +27,15 @@
     		<div class="col-md-2 col_2">
     			<h4>Social</h4>
     			<ul class="footer_social">
-				  <li><a href="#"><i class="fa fa-facebook fa1"> </i></a></li>
-				  <li><a href="#"><i class="fa fa-twitter fa1"> </i></a></li>
-				  <li><a href="#"><i class="fa fa-google-plus fa1"> </i></a></li>
-				  <li><a href="#"><i class="fa fa-youtube fa1"> </i></a></li>
+				  <li><a target="_blank" href="<?php echo $facebook_url; ?>"><i class="fa fa-facebook fa1"> </i></a></li>
+				  <li><a target="_blank" href="<?php echo $twitter_url; ?>"><i class="fa fa-twitter fa1"> </i></a></li>
+				  <li><a target="_blank" href="<?php echo $google_plus_url; ?>"><i class="fa fa-google-plus fa1"> </i></a></li>
+				 <!-- <li><a href="<?php echo $facebook_url; ?>"><i class="fa fa-youtube fa1"> </i></a></li>-->
 			    </ul>
     		</div>
     		<div class="clearfix"> </div>
     		<div class="copy">
-		      <p>Copyright © 2015 Marital . All Rights Reserved  | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+		      <p>Copyright © 2019 Shree Darji Samaj Gnati Seva Mandal - Navsari . All Rights Reserved  | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
 	        </div>
     	</div>
     </div>

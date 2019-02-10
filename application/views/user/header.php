@@ -16,7 +16,7 @@
 			   </ul>
              </nav>
            </div>
-           <a class="brand" href="index.html"><img src="<?php echo base_url(); ?>template/user/images/logo.png" alt="logo"></a>
+           <a class="brand" href="index.html"><img src="<?php echo base_url(); ?>files/admin/logo/<?php echo $settings_logo; ?>" style="height:100px" alt="logo"></a>
            <div class="pull-right">
           	<nav class="navbar nav_bottom" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->

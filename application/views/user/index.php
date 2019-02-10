@@ -7,7 +7,6 @@
 <!DOCTYPE HTML>
 <html>
    <head>
-      <title>Marital an Wedding Category Flat Bootstarp Resposive Website Template | Home :: w3layouts</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="keywords" content="Marital Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -15,6 +14,8 @@
       <?php 
          include_once('head_file.php');
       ?>
+      <title><?php echo $settings_website_title; ?></title>
+      
    </head>
    <body>
       <!-- ============================  Navigation Start =========================== -->

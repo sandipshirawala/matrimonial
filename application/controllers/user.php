@@ -317,7 +317,7 @@ class user extends CI_Controller
     
     public function about_us()
     {
-        
+        $this->load->view('user/about_us_view');   
     }
     
     public function contact_us()
@@ -357,15 +357,12 @@ class user extends CI_Controller
         }
         $this->db->where('profile_request_id',$profile_request_id);
         $this->db->update('tbl_profile_request',$update_data);
+
+        $url=$_SERVER['HTTP_REFERER'];
+        redirect($url);
     }
-    
-
-    
 
 
-    
-    
-    
     
 }
 ?> 
